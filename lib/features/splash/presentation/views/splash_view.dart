@@ -4,7 +4,6 @@ import 'package:bookly/features/splash/presentation/views/widgets/splash_view_bo
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-// ignore: must_be_immutable
 class SplashView extends StatefulWidget {
   SplashView({super.key});
   bool firstCall = true;
@@ -34,10 +33,11 @@ class _SplashViewState extends State<SplashView> {
         Navigator.pushReplacement(
           context,
           PageTransition(
-              child: const HomeView(),
-              duration: kTransitionDuration,
-              type: PageTransitionType.rightToLeftJoined,
-              childCurrent: widget),
+            child: const HomeView(),
+            duration: kTransitionDuration,
+            type: PageTransitionType.rightToLeftJoined,
+            childCurrent: widget,
+          ),
         );
         widget.firstCall = false;
       });
