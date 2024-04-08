@@ -6,12 +6,15 @@ class CustomListViewItem extends StatelessWidget {
   const CustomListViewItem({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Stack(
-      alignment: Alignment.bottomRight,
-      children: [
-        BookImage(),
-        PlayIcon(),
-      ],
+    return Padding(
+      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+      child: const Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          BookImage(),
+          PlayIcon(),
+        ],
+      ),
     );
   }
 }
