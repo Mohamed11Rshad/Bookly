@@ -1,5 +1,4 @@
 import 'package:bookly/core/utils/styles.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -19,12 +18,12 @@ class BookRating extends StatelessWidget {
           padding: EdgeInsets.only(left: 8, right: 4),
           child: Text(
             '4.8',
-            style: Styles.textStyle18,
+            style: Styles.textStyle14,
           ),
         ),
         Text(
           '(2390)',
-          style: Styles.textStyle16.copyWith(color: Colors.white60),
+          style: Styles.textStyle14.copyWith(color: Colors.white54),
         ),
       ],
     );
