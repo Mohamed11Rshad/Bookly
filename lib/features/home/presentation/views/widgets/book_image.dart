@@ -2,8 +2,10 @@ import 'package:bookly/core/utils/assets.dart';
 import 'package:flutter/cupertino.dart';
 
 class BookImage extends StatelessWidget {
+  final String image;
   const BookImage({
     super.key,
+    required this.image,
   });
 
   @override
@@ -11,12 +13,12 @@ class BookImage extends StatelessWidget {
     return AspectRatio(
       aspectRatio: 1 / 1.5,
       child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(16)),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(16)),
           image: DecorationImage(
             fit: BoxFit.fill,
             image: AssetImage(
-              AssetsData.testImage,
+              image,
             ),
           ),
         ),

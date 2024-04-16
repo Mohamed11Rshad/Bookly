@@ -3,16 +3,19 @@ import 'package:bookly/features/home/presentation/views/widgets/play_icon.dart';
 import 'package:flutter/material.dart';
 
 class CustomListViewItem extends StatelessWidget {
-  const CustomListViewItem({super.key});
+  final String image;
+  const CustomListViewItem({super.key, required this.image});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
-      child: const Stack(
+      child: Stack(
         alignment: Alignment.bottomRight,
         children: [
-          BookImage(),
-          PlayIcon(),
+          BookImage(
+            image: image,
+          ),
+          const PlayIcon(),
         ],
       ),
     );
