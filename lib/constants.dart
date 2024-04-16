@@ -5,3 +5,4 @@ const kTransitionDuration = Duration(
   milliseconds: 650,
 );
 const kGtSectraFine = 'GT Sectra Fine';
+const kGilroy = 'Gilroy';
