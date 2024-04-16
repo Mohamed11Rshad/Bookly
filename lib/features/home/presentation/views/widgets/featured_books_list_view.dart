@@ -1,7 +1,7 @@
 import 'package:bookly/core/utils/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'custom_list_view_items.dart';
+import 'custom_list_view_item.dart';
 
 class FeaturedBooksListView extends StatefulWidget {
   const FeaturedBooksListView({Key? key}) : super(key: key);
