@@ -56,7 +56,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
               );
             }),
         const SizedBox(
-          height: 3,
+          height: 4,
         ),
         FadedLogo(opacityAnimation: opacityAnimation),
       ],

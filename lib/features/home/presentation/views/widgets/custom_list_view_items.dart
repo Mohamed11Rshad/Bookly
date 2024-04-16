@@ -8,7 +8,7 @@ class CustomListViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05),
+      padding: const EdgeInsets.only(left: 24),
       child: Stack(
         alignment: Alignment.bottomRight,
         children: [

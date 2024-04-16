@@ -30,7 +30,7 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
       child: CarouselSlider.builder(
         itemCount: movies.length,
         options: CarouselOptions(
-          viewportFraction: 0.38,
+          viewportFraction: 0.4,
           padEnds: false,
           enableInfiniteScroll: true,
           onPageChanged: (index, reason) {
