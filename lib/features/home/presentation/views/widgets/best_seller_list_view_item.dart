@@ -21,7 +21,7 @@ class BestSellerListViewItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Row(
             children: [
-              const BookImage(image: AssetsData.lucaMovieImage),
+              const BookImage(image: AssetsData.lucaBookImage),
               const SizedBox(
                 width: 25,
               ),

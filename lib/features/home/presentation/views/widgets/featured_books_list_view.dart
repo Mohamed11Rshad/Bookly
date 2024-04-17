@@ -19,10 +19,10 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
     var mediaQuerywidth = MediaQuery.of(context).size.width;
 
     List movies = [
-      AssetsData.harryMovieImage,
-      AssetsData.girlMovieImage,
-      AssetsData.lucaMovieImage,
-      AssetsData.incredMovieImage,
+      AssetsData.jungeBookImage,
+      AssetsData.girlBookImage,
+      AssetsData.lucaBookImage,
+      AssetsData.incredBookImage,
     ];
     return SizedBox(
       width: mediaQuerywidth,

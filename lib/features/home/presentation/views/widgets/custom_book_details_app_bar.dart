@@ -8,8 +8,8 @@ class CustomBookDetailsAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 24,
-        right: 24,
+        left: 20,
+        right: 20,
         top: 54,
         bottom: 18,
       ),
@@ -24,10 +24,15 @@ class CustomBookDetailsAppBar extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(
+              right: 15,
+              left: 10,
+              top: 10,
+              bottom: 10,
+            ),
             icon: const Icon(
               FontAwesomeIcons.cartShopping,
-              size: 24,
+              size: 22,
             ),
             onPressed: () {},
           ),
