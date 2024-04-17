@@ -14,11 +14,11 @@ class BookDetailsViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var deviceWidth = MediaQuery.of(context).size.width;
-    return Column(
+    return ListView(
       children: [
         const CustomBookDetailsAppBar(),
-        SizedBox(
-          width: deviceWidth * 0.46,
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.25),
           child: const BookImage(image: AssetsData.lucaBookImage),
         ),
         const SizedBox(
@@ -34,7 +34,11 @@ class BookDetailsViewBody extends StatelessWidget {
           height: 24,
         ),
         const BooksActionsButton(),
-        Spacer(),
+        const Expanded(
+          child: SizedBox(
+            height: 30,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(
             left: 24,
@@ -51,7 +55,9 @@ class BookDetailsViewBody extends StatelessWidget {
           ),
         ),
         const SuggestedBooksListView(),
-        const Spacer(),
+        const SizedBox(
+          height: 20,
+        ),
       ],
     );
   }
@@ -94,8 +100,8 @@ class BookTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: deviceWidth * 0.7,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
       child: Text(
         textAlign: TextAlign.center,
         maxLines: 2,

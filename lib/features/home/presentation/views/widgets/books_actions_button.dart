@@ -7,8 +7,8 @@ class BooksActionsButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 310,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Row(
         children: [
           const Expanded(
