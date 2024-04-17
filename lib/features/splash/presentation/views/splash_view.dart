@@ -34,7 +34,7 @@ class _SplashViewState extends State<SplashView> {
           context,
           PageTransition(
             child: const HomeView(),
-            duration: kTransitionDuration,
+            duration: kSplashTransitionDuration,
             type: PageTransitionType.rightToLeftJoined,
             childCurrent: widget,
           ),
