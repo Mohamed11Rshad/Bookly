@@ -8,7 +8,7 @@ class BooksActionsButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 300,
+      width: 310,
       child: Row(
         children: [
           const Expanded(

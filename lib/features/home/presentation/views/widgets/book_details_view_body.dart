@@ -5,6 +5,7 @@ import 'package:bookly/features/home/presentation/views/widgets/book_image.dart'
 import 'package:bookly/features/home/presentation/views/widgets/book_rating.dart';
 import 'package:bookly/features/home/presentation/views/widgets/books_actions_button.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
+import 'package:bookly/features/home/presentation/views/widgets/suggested_books_list_view.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsViewBody extends StatelessWidget {
@@ -16,15 +17,12 @@ class BookDetailsViewBody extends StatelessWidget {
     return Column(
       children: [
         const CustomBookDetailsAppBar(),
-        const SizedBox(
-          height: 8,
-        ),
         SizedBox(
           width: deviceWidth * 0.46,
           child: const BookImage(image: AssetsData.lucaBookImage),
         ),
         const SizedBox(
-          height: 30,
+          height: 20,
         ),
         BookTitle(deviceWidth: deviceWidth),
         AuthorName(deviceWidth: deviceWidth),
@@ -36,6 +34,24 @@ class BookDetailsViewBody extends StatelessWidget {
           height: 24,
         ),
         const BooksActionsButton(),
+        Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(
+            left: 24,
+            bottom: 16,
+          ),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'You can also like',
+              style: Styles.textStyle16.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+        const SuggestedBooksListView(),
+        const Spacer(),
       ],
     );
   }
@@ -80,7 +96,6 @@ class BookTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: deviceWidth * 0.7,
-      height: 40,
       child: Text(
         textAlign: TextAlign.center,
         maxLines: 2,
