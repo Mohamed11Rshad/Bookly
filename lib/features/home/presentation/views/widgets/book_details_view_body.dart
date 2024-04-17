@@ -3,6 +3,7 @@ import 'package:bookly/core/utils/assets.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_image.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_rating.dart';
+import 'package:bookly/features/home/presentation/views/widgets/books_actions_button.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -16,21 +17,25 @@ class BookDetailsViewBody extends StatelessWidget {
       children: [
         const CustomBookDetailsAppBar(),
         const SizedBox(
-          height: 10,
+          height: 8,
         ),
         SizedBox(
-          width: deviceWidth * 0.47,
+          width: deviceWidth * 0.46,
           child: const BookImage(image: AssetsData.lucaBookImage),
         ),
         const SizedBox(
-          height: 40,
+          height: 30,
         ),
         BookTitle(deviceWidth: deviceWidth),
         AuthorName(deviceWidth: deviceWidth),
         const SizedBox(
-          height: 12,
+          height: 10,
         ),
         const BookRating(),
+        const SizedBox(
+          height: 24,
+        ),
+        const BooksActionsButton(),
       ],
     );
   }
