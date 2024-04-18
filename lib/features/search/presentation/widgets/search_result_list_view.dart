@@ -1,8 +1,8 @@
 import 'package:bookly/features/home/presentation/views/widgets/books_list_view_item.dart';
 import 'package:flutter/cupertino.dart';
 
-class BestSellerListViewSliver extends StatelessWidget {
-  const BestSellerListViewSliver({super.key});
+class SearchResultListView extends StatelessWidget {
+  const SearchResultListView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +11,7 @@ class BestSellerListViewSliver extends StatelessWidget {
         (BuildContext context, int index) {
           return const Padding(
             padding: EdgeInsets.only(bottom: 20),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 24,
-              ),
-              child: BooksListViewItem(),
-            ),
+            child: BooksListViewItem(),
           );
         },
         childCount: 20,

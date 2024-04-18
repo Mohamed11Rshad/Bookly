@@ -27,6 +27,7 @@ class CustomHomeAppBar extends StatelessWidget {
             icon: const Icon(
               FontAwesomeIcons.magnifyingGlass,
               size: 24,
+              color: Colors.white,
             ),
             onPressed: () {
               Navigation.navigateWithSlideAnimation(

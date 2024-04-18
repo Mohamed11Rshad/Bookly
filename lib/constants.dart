@@ -5,7 +5,7 @@ const kSplashTransitionDuration = Duration(
   milliseconds: 650,
 );
 const kTransitionDuration = Duration(
-  milliseconds: 100,
+  milliseconds: 200,
 );
 const kGtSectraFine = 'GT Sectra Fine';
 const kGilroy = 'Gilroy';

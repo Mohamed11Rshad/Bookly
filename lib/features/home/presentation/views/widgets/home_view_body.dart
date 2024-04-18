@@ -1,4 +1,5 @@
 import 'package:bookly/core/utils/styles.dart';
+import 'package:bookly/core/widgets/custom_title.dart';
 import 'package:bookly/features/home/presentation/views/widgets/best_seller_list_view.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_app_bar.dart';
 import 'package:bookly/features/home/presentation/views/widgets/featured_books_list_view.dart';
@@ -22,7 +23,13 @@ class HomeViewBody extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              BestSellerTitle(),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 24,
+                  bottom: 15,
+                ),
+                child: CustomTitle(title: 'Best Seller'),
+              ),
               SizedBox(
                 height: 5,
               ),
@@ -31,27 +38,6 @@ class HomeViewBody extends StatelessWidget {
         ),
         BestSellerListViewSliver(),
       ],
-    );
-  }
-}
-
-class BestSellerTitle extends StatelessWidget {
-  const BestSellerTitle({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(
-        left: 24,
-        bottom: 15,
-      ),
-      child: Text(
-        'Best Seller',
-        style: Styles.textStyle20,
-        textAlign: TextAlign.start,
-      ),
     );
   }
 }

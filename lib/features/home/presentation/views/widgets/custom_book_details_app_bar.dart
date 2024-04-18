@@ -19,6 +19,7 @@ class CustomBookDetailsAppBar extends StatelessWidget {
             icon: const Icon(
               Icons.close,
               size: 28,
+              color: Colors.white,
             ),
             onPressed: () {},
           ),
@@ -33,6 +34,7 @@ class CustomBookDetailsAppBar extends StatelessWidget {
             icon: const Icon(
               FontAwesomeIcons.cartShopping,
               size: 22,
+              color: Colors.white,
             ),
             onPressed: () {},
           ),
