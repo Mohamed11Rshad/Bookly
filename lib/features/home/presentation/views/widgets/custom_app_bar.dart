@@ -1,4 +1,6 @@
 import 'package:bookly/core/utils/assets.dart';
+import 'package:bookly/core/utils/navigation.dart';
+import 'package:bookly/features/search/presentation/views/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,7 +28,12 @@ class CustomHomeAppBar extends StatelessWidget {
               FontAwesomeIcons.magnifyingGlass,
               size: 24,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigation.navigateWithSlideAnimation(
+                context: context,
+                destination: const SearchView(),
+              );
+            },
           ),
         ],
       ),

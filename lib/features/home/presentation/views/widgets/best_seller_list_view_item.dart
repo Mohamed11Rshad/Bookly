@@ -1,5 +1,6 @@
 import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/assets.dart';
+import 'package:bookly/core/utils/navigation.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/features/home/presentation/views/book_details_view.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_image.dart';
@@ -13,7 +14,10 @@ class BestSellerListViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        navigateToBookDetailsView(context);
+        Navigation.navigateWithSlideAnimation(
+          context: context,
+          destination: const BookDetailsView(),
+        );
       },
       child: SizedBox(
         height: 120,
@@ -68,27 +72,6 @@ class BestSellerListViewItem extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Future<dynamic> navigateToBookDetailsView(BuildContext context) {
-    return Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            const BookDetailsView(),
-        transitionDuration: kTransitionDuration,
-        reverseTransitionDuration: kTransitionDuration,
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          const begin = Offset(1.0, 0.0);
-          const end = Offset.zero;
-          var tween = Tween(begin: begin, end: end);
-          return SlideTransition(
-            position: animation.drive(tween),
-            child: child,
-          );
-        },
       ),
     );
   }
