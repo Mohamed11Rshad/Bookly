@@ -1,4 +1,3 @@
-import 'package:bookly/core/utils/assets.dart';
 import 'package:bookly/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_error_widget.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_loading_indicator.dart';
