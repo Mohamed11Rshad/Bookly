@@ -5,9 +5,9 @@ import 'package:bookly/features/home/data/repos/home_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-class homeRepoImpl implements HomeRepo {
+class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
-  homeRepoImpl(this.apiService);
+  HomeRepoImpl(this.apiService);
 
   @override
   Future<Either<Failure, List<BookModel>>> fetchBestSellerBooks() async {

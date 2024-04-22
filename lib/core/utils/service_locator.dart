@@ -16,8 +16,8 @@ void setupServiceLocator() {
     ),
   );
 
-  getIt.registerSingleton<homeRepoImpl>(
-    homeRepoImpl(
+  getIt.registerSingleton<HomeRepoImpl>(
+    HomeRepoImpl(
       getIt.get<ApiService>(),
     ),
   );
