@@ -20,7 +20,7 @@ class PlayIcon extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(2000),
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+            filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
             child: Container(
               color: Colors.transparent, // Adjust opacity as needed
               child: Padding(

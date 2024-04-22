@@ -23,7 +23,7 @@ class BooksListViewItem extends StatelessWidget {
         height: 120,
         child: Row(
           children: [
-            const BookImage(image: AssetsData.lucaBookImage),
+            const BookImage(imageUrl: AssetsData.lucaBookImage),
             const SizedBox(
               width: 25,
             ),

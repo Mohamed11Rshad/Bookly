@@ -1,6 +1,7 @@
 import 'package:bookly/core/utils/assets.dart';
 import 'package:bookly/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_error_widget.dart';
+import 'package:bookly/features/home/presentation/views/widgets/custom_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +22,6 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
     var mediaQueryHeight = MediaQuery.of(context).size.height;
     var mediaQuerywidth = MediaQuery.of(context).size.width;
 
-    List movies = [
-      AssetsData.jungeBookImage,
-      AssetsData.girlBookImage,
-      AssetsData.lucaBookImage,
-      AssetsData.incredBookImage,
-    ];
     return BlocBuilder<FeaturedBooksCubit, FeaturedBooksState>(
       builder: (context, state) {
         if (state is FeaturedBooksSuccess) {
@@ -34,12 +29,13 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
             width: mediaQuerywidth,
             height: mediaQueryHeight * 0.31,
             child: CarouselSlider.builder(
-              itemCount: movies.length,
+              itemCount: state.books.length,
               options: CarouselOptions(
                 viewportFraction: 0.4,
                 padEnds: false,
                 enableInfiniteScroll: true,
                 onPageChanged: (index, reason) {
+                  print(state.books.length);
                   setState(() {
                     _currentIndex = index;
                   });
@@ -54,7 +50,7 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: CustomListViewItem(
-                      image: movies[index],
+                      image: state.books[index].volumeInfo.imageLinks.thumbnail,
                     ),
                   ),
                 );
@@ -64,7 +60,10 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
         } else if (state is FeaturedBooksFailure) {
           return CustomErrorWidget(errMessage: state.errMessage);
         } else {
-          return const CircularProgressIndicator();
+          return CustomLoadingIndicator(
+            width: mediaQuerywidth,
+            height: mediaQueryHeight * 0.31,
+          );
         }
       },
     );

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class BookImage extends StatelessWidget {
-  final String image;
+  final String imageUrl;
   const BookImage({
     super.key,
-    required this.image,
+    required this.imageUrl,
   });
 
   @override
@@ -16,8 +16,8 @@ class BookImage extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(8)),
           image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage(
-              image,
+            image: NetworkImage(
+              imageUrl,
             ),
           ),
         ),

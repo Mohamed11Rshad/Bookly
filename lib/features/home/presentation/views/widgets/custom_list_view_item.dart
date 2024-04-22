@@ -13,7 +13,7 @@ class CustomListViewItem extends StatelessWidget {
         alignment: Alignment.bottomRight,
         children: [
           BookImage(
-            image: image,
+            imageUrl: image,
           ),
           const PlayIcon(),
         ],

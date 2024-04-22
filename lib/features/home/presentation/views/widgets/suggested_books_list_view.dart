@@ -16,7 +16,7 @@ class SuggestedBooksListView extends StatelessWidget {
         itemBuilder: (context, builder) {
           return const Padding(
             padding: EdgeInsets.symmetric(horizontal: 6),
-            child: BookImage(image: AssetsData.girlBookImage),
+            child: BookImage(imageUrl: AssetsData.girlBookImage),
           );
         },
       ),
