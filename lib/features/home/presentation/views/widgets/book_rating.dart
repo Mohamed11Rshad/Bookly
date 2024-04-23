@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BookRating extends StatelessWidget {
-  const BookRating({super.key});
+  final dynamic rating;
+  final int count;
+  const BookRating({
+    super.key,
+    required this.rating,
+    required this.count,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -15,15 +21,15 @@ class BookRating extends StatelessWidget {
           color: Color(0xffFFDD4F),
           size: 16,
         ),
-        const Padding(
-          padding: EdgeInsets.only(left: 8, right: 4),
+        Padding(
+          padding: const EdgeInsets.only(left: 8, right: 4),
           child: Text(
-            '4.8',
-            style: Styles.textStyle14,
+            "$rating",
+            style: Styles.textStyle16,
           ),
         ),
         Text(
-          '(2390)',
+          " ($count)",
           style: Styles.textStyle14.copyWith(color: Colors.white54),
         ),
       ],

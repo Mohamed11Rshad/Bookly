@@ -1,14 +1,15 @@
 import 'package:bookly/constants.dart';
-import 'package:bookly/core/utils/assets.dart';
 import 'package:bookly/core/utils/navigation.dart';
 import 'package:bookly/core/utils/styles.dart';
+import 'package:bookly/features/home/data/models/book_model/book_model.dart';
 import 'package:bookly/features/home/presentation/views/book_details_view.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_image.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_rating.dart';
 import 'package:flutter/material.dart';
 
 class BooksListViewItem extends StatelessWidget {
-  const BooksListViewItem({super.key});
+  final BookModel bookModel;
+  const BooksListViewItem({super.key, required this.bookModel});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +21,13 @@ class BooksListViewItem extends StatelessWidget {
         );
       },
       child: SizedBox(
-        height: 120,
+        height: 135,
         child: Row(
           children: [
-            // const BookImage(
-            //   imageUrl: AssetsData.lucaBookImage,
-            //   errImageSize: 40,
-            // ),
+            BookImage(
+              imageUrl: bookModel.volumeInfo.imageLinks.thumbnail,
+              errImageSize: 40,
+            ),
             const SizedBox(
               width: 25,
             ),
@@ -38,7 +39,7 @@ class BooksListViewItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Text(
-                      'LUCA',
+                      bookModel.volumeInfo.title!,
                       style: Styles.textStyle22.copyWith(
                         fontFamily: kGtSectraFine,
                       ),
@@ -47,7 +48,9 @@ class BooksListViewItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    'J.K. Rowling',
+                    bookModel.volumeInfo.authors == null
+                        ? 'Unknown'
+                        : bookModel.volumeInfo.authors![0],
                     style: Styles.textStyle14.copyWith(color: Colors.white60),
                   ),
                   const SizedBox(
@@ -56,15 +59,20 @@ class BooksListViewItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "19.99 ",
+                        '${(bookModel.saleInfo?.retailPrice?.amount) ?? 'free'}',
                         style: Styles.numTextStyle20,
                       ),
                       Text(
-                        "€",
+                        (bookModel.saleInfo?.retailPrice?.amount) == null
+                            ? ''
+                            : ' €',
                         style: Styles.numTextStyle18,
                       ),
                       const Spacer(),
-                      const BookRating(),
+                      BookRating(
+                        rating: bookModel.volumeInfo.averageRating ?? 0,
+                        count: bookModel.volumeInfo.ratingCount ?? 0,
+                      ),
                     ],
                   )
                 ],

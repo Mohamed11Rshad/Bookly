@@ -1,6 +1,5 @@
 import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/service_locator.dart';
-import 'package:bookly/features/home/data/repos/home_repo.dart';
 import 'package:bookly/features/home/data/repos/home_repo_impl.dart';
 import 'package:bookly/features/home/presentation/manager/best_seller_cubit/best_seller_books_cubit.dart';
 import 'package:bookly/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
@@ -29,7 +28,7 @@ class Bookly extends StatelessWidget {
         BlocProvider(
           create: (context) => BestSellerBooksCubit(
             getIt.get<HomeRepoImpl>(),
-          ),
+          )..fetchBestSellerBooks(),
         )
       ],
       child: MaterialApp(

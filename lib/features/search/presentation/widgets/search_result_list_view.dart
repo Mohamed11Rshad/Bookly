@@ -1,4 +1,3 @@
-import 'package:bookly/features/home/presentation/views/widgets/books_list_view_item.dart';
 import 'package:flutter/cupertino.dart';
 
 class SearchResultListView extends StatelessWidget {
@@ -11,7 +10,7 @@ class SearchResultListView extends StatelessWidget {
         (BuildContext context, int index) {
           return const Padding(
             padding: EdgeInsets.only(bottom: 20),
-            child: BooksListViewItem(),
+            // child: BooksListViewItem(),
           );
         },
         childCount: 20,
