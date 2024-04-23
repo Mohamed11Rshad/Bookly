@@ -49,7 +49,9 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: CustomListViewItem(
-                      image: state.books[index].volumeInfo.imageLinks.thumbnail,
+                      image:
+                          state.books[index].volumeInfo.imageLinks?.thumbnail ??
+                              '',
                     ),
                   ),
                 );
