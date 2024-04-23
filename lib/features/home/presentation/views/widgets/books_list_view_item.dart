@@ -17,7 +17,9 @@ class BooksListViewItem extends StatelessWidget {
       onTap: () {
         Navigation.navigateWithSlideAnimation(
           context: context,
-          destination: const BookDetailsView(),
+          destination: BookDetailsView(
+            book: bookModel,
+          ),
         );
       },
       child: SizedBox(
