@@ -4,10 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;
+Dio _dio = Dio();
 
 void setupServiceLocator() {
+  _dio.options.connectTimeout = const Duration(seconds: 15);
   getIt.registerSingleton<Dio>(
-    Dio(),
+    _dio,
   );
 
   getIt.registerSingleton<ApiService>(
