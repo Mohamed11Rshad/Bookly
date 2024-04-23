@@ -1,5 +1,5 @@
 import 'package:bookly/features/home/presentation/views/widgets/book_image_shimmer.dart';
-import 'package:bookly/features/home/presentation/views/widgets/custom_err_widget.dart';
+import 'package:bookly/features/home/presentation/views/widgets/custom_img_err_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
