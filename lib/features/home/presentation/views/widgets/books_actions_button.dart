@@ -1,9 +1,16 @@
+import 'package:bookly/core/utils/functions.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:bookly/core/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 
 class BooksActionsButton extends StatelessWidget {
-  const BooksActionsButton({super.key});
+  final num price;
+  final String? url;
+  const BooksActionsButton({
+    super.key,
+    required this.price,
+    required this.url,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +18,13 @@ class BooksActionsButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             child: CustomButton(
-              text: '19.99 €',
+              onPressed: () {},
+              text: price != 0 ? "$price €" : 'Free',
               backgroundColor: Colors.white,
               textColor: Colors.black,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
                 bottomLeft: Radius.circular(16),
               ),
@@ -24,17 +32,24 @@ class BooksActionsButton extends StatelessWidget {
           ),
           Expanded(
             child: CustomButton(
-              text: 'Free Preview',
-              backgroundColor: const Color(0xffEf8262),
-              textColor: Colors.white,
+              onPressed: url == null
+                  ? null
+                  : () {
+                      launchCustomUrl(url!);
+                    },
+              text: 'Preview',
+              backgroundColor: url == null
+                  ? const Color(0xffEf8262).withOpacity(0.3)
+                  : const Color(0xffEf8262),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(16),
                 bottomRight: Radius.circular(16),
               ),
               textStyle: Styles.textStyle16.copyWith(
-                color: Colors.white,
+                color: url == null ? Colors.white24 : Colors.white,
                 fontWeight: FontWeight.bold,
               ),
+              textColor: Colors.white,
             ),
           ),
         ],

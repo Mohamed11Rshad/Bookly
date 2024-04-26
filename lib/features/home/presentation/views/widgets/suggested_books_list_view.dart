@@ -1,6 +1,9 @@
+import 'package:bookly/core/utils/navigation.dart';
 import 'package:bookly/features/home/presentation/manager/similar_books_cubit/similar_books_cubit.dart';
+import 'package:bookly/features/home/presentation/views/book_details_view.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_image.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_loading_indicator.dart';
+import 'package:bookly/features/home/presentation/views/widgets/none_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,20 +23,32 @@ class SuggestedBooksListView extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 6),
-              child: BookImage(
-                  imageUrl: (state as SimilarBooksSuccess)
-                          .books[index]
-                          .volumeInfo
-                          .imageLinks
-                          ?.thumbnail ??
-                      ''),
+              child: GestureDetector(
+                onTap: () {
+                  Navigation.navigateWithSlideAnimationRepalacement(
+                    context: context,
+                    destination: BookDetailsView(
+                      book: (state as SimilarBooksSuccess).books[index],
+                    ),
+                  );
+                },
+                child: BookImage(
+                    imageUrl: (state as SimilarBooksSuccess)
+                            .books[index]
+                            .volumeInfo
+                            .imageLinks
+                            ?.thumbnail ??
+                        ''),
+              ),
             );
           },
         ),
       );
-    } else {
+    } else if (state is SimilarBooksLoading) {
       return CustomLoadingIndicator(
           width: MediaQuery.of(context).size.width, height: 150);
+    } else {
+      return const NoneWidget();
     }
   }
 }

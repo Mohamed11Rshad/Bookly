@@ -11,6 +11,8 @@ final class SimilarBooksInitial extends SimilarBooksState {}
 
 final class SimilarBooksLoading extends SimilarBooksState {}
 
+final class SimilarBooksNoSimilar extends SimilarBooksState {}
+
 final class SimilarBooksFailure extends SimilarBooksState {
   final String errMessage;
 

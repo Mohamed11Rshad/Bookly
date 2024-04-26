@@ -28,7 +28,7 @@ class SuggestedBooksSection extends StatelessWidget {
           state: state,
         ),
         const SizedBox(
-          height: 20,
+          height: 16,
         )
       ],
     );

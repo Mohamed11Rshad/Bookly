@@ -34,7 +34,6 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
                 padEnds: false,
                 enableInfiniteScroll: true,
                 onPageChanged: (index, reason) {
-                  print(state.books.length);
                   setState(() {
                     _currentIndex = index;
                   });
@@ -49,9 +48,7 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: CustomListViewItem(
-                      image:
-                          state.books[index].volumeInfo.imageLinks?.thumbnail ??
-                              '',
+                      book: state.books[index],
                     ),
                   ),
                 );

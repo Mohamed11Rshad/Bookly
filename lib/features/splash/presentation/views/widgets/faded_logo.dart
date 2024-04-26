@@ -16,9 +16,9 @@ class FadedLogo extends StatelessWidget {
           return FadeTransition(
             opacity: opacityAnimation,
             child: const Text(
-              'Read Free Books',
+              'Open a Book, Open Your Mind',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,

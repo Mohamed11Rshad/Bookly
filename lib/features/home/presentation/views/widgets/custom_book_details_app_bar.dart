@@ -10,8 +10,8 @@ class CustomBookDetailsAppBar extends StatelessWidget {
       padding: const EdgeInsets.only(
         left: 20,
         right: 20,
-        top: 20,
-        bottom: 18,
+        top: 16,
+        bottom: 16,
       ),
       child: Row(
         children: [
@@ -21,7 +21,9 @@ class CustomBookDetailsAppBar extends StatelessWidget {
               size: 28,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           const Spacer(),
           IconButton(

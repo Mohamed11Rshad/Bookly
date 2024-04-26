@@ -1,11 +1,14 @@
-import 'package:bookly/constants.dart';
-import 'package:bookly/core/utils/styles.dart';
+import 'package:bookly/core/models/book_model/book_model.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_image.dart';
+import 'package:bookly/features/home/presentation/views/widgets/book_rating.dart';
+import 'package:bookly/features/home/presentation/views/widgets/book_title.dart';
 import 'package:bookly/features/home/presentation/views/widgets/books_actions_button.dart';
+import 'package:bookly/features/home/presentation/views/widgets/custom_author_name_widget.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsSection extends StatelessWidget {
-  const BookDetailsSection({super.key});
+  const BookDetailsSection({super.key, required this.book});
+  final BookModel book;
 
   @override
   Widget build(BuildContext context) {
@@ -14,75 +17,37 @@ class BookDetailsSection extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.25),
-          child: const BookImage(imageUrl: ''),
+          padding: EdgeInsets.symmetric(horizontal: deviceWidth * 0.26),
+          child: BookImage(
+            imageUrl: book.volumeInfo.imageLinks?.thumbnail ?? '',
+          ),
         ),
         const SizedBox(
           height: 20,
         ),
-        BookTitle(deviceWidth: deviceWidth),
-        AuthorName(deviceWidth: deviceWidth),
+        BookTitle(
+          deviceWidth: deviceWidth,
+          bookTitle: book.volumeInfo.title ?? 'Unknown',
+        ),
+        CustomAuthorNameWidget(
+          deviceWidth: deviceWidth,
+          authorName: book.volumeInfo.authors?[0] ?? 'Unknown',
+        ),
         const SizedBox(
           height: 10,
         ),
-        // const BookRating(),
+        BookRating(
+          rating: book.volumeInfo.averageRating ?? 0,
+          count: book.volumeInfo.ratingCount ?? 0,
+        ),
         const SizedBox(
           height: 24,
         ),
-        const BooksActionsButton(),
+        BooksActionsButton(
+          url: book.volumeInfo.previewLink,
+          price: book.saleInfo?.listPrice?.amount ?? 0,
+        ),
       ],
-    );
-  }
-}
-
-class AuthorName extends StatelessWidget {
-  const AuthorName({
-    super.key,
-    required this.deviceWidth,
-  });
-
-  final double deviceWidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: deviceWidth * 0.7,
-      child: Text(
-        textAlign: TextAlign.center,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        "Rudyard Kipling",
-        style: Styles.textStyle18.copyWith(
-          fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.normal,
-          color: Colors.white70,
-        ),
-      ),
-    );
-  }
-}
-
-class BookTitle extends StatelessWidget {
-  const BookTitle({
-    super.key,
-    required this.deviceWidth,
-  });
-
-  final double deviceWidth;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: Text(
-        textAlign: TextAlign.center,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        "Luca",
-        style: Styles.textStyle30.copyWith(
-          fontFamily: kGtSectraFine,
-        ),
-      ),
     );
   }
 }
