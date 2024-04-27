@@ -2,7 +2,7 @@ import 'package:bookly/core/models/book_model/book_model.dart';
 import 'package:bookly/features/home/presentation/manager/similar_books_cubit/similar_books_cubit.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_details_section.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
-import 'package:bookly/features/home/presentation/views/widgets/custom_error_widget.dart';
+import 'package:bookly/core/widgets/custom_error_widget.dart';
 import 'package:bookly/features/home/presentation/views/widgets/suggested_box_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,6 +51,12 @@ class _BookDetailsViewBodyState extends State<BookDetailsViewBody> {
           return Center(
             child: CustomErrorWidget(
               errMessage: state.errMessage,
+              onRefresh: () async {
+                await BlocProvider.of<SimilarBooksCubit>(context)
+                    .fetchSimilarBooks(
+                  category: widget.book.volumeInfo.categories![0],
+                );
+              },
             ),
           );
         }

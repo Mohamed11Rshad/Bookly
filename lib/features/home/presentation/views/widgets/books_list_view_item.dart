@@ -39,7 +39,7 @@ class BooksListViewItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.6,
                     child: Text(
                       bookModel.volumeInfo.title!,
                       style: Styles.textStyle22.copyWith(

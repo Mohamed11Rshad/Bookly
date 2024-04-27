@@ -2,7 +2,7 @@ import 'package:bookly/core/utils/navigation.dart';
 import 'package:bookly/core/models/book_model/book_model.dart';
 import 'package:bookly/features/home/presentation/views/book_details_view.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_image.dart';
-import 'package:bookly/features/home/presentation/views/widgets/play_icon.dart';
+import 'package:bookly/core/widgets/play_icon.dart';
 import 'package:flutter/material.dart';
 
 class CustomListViewItem extends StatelessWidget {

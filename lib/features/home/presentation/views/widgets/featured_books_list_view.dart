@@ -1,6 +1,6 @@
 import 'package:bookly/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly/features/home/presentation/views/widgets/custom_error_widget.dart';
-import 'package:bookly/features/home/presentation/views/widgets/custom_loading_indicator.dart';
+import 'package:bookly/core/widgets/custom_error_widget.dart';
+import 'package:bookly/core/widgets/custom_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -56,7 +56,13 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
             ),
           );
         } else if (state is FeaturedBooksFailure) {
-          return CustomErrorWidget(errMessage: state.errMessage);
+          return CustomErrorWidget(
+            errMessage: state.errMessage,
+            onRefresh: () async {
+              await BlocProvider.of<FeaturedBooksCubit>(context)
+                  .fetchFeaturedBooks();
+            },
+          );
         } else {
           return CustomLoadingIndicator(
             width: mediaQuerywidth,
