@@ -9,3 +9,5 @@ const kTransitionDuration = Duration(
 );
 const kGtSectraFine = 'GT Sectra Fine';
 const kGilroy = 'Gilroy';
+const kFeaturedBox = 'featured_box';
+const kBestSellerBox = 'best_seller_box';

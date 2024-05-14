@@ -1,72 +1,91 @@
+import 'package:bookly/core/errors/bookFailureWithCached.dart';
 import 'package:bookly/core/errors/failures.dart';
-import 'package:bookly/core/utils/api_service.dart';
-import 'package:bookly/core/models/book_model/book_model.dart';
-import 'package:bookly/features/home/data/repos/home_repo.dart';
+import 'package:bookly/features/home/data/data_sources/home_local_data_source.dart';
+import 'package:bookly/features/home/data/data_sources/home_remote_data_sorce.dart';
+import 'package:bookly/features/home/domain/entities/book_entity.dart';
+import 'package:bookly/features/home/domain/repos/home_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-class HomeRepoImpl implements HomeRepo {
-  final ApiService apiService;
-  HomeRepoImpl(this.apiService);
+class HomeRepoImpl extends HomeRepo {
+  final HomeRemoteDataSource homeRemoteDataSource;
+  final HomeLocalDataSource homeLocalDataSource;
 
+  HomeRepoImpl(
+      {required this.homeRemoteDataSource,
+      required this.homeLocalDataSource,
+      e});
   @override
-  Future<Either<Failure, List<BookModel>>> fetchBestSellerBooks() async {
+  Future<Either<BookFailureWithCached, List<BookEntity>>> fetchBestSellerBooks({
+    int pageNumber = 0,
+  }) async {
     try {
-      var data = await apiService.get(
-          endPoint: 'volumes?Filtering=free-ebooks&q=doctor');
-      List<BookModel> books = [];
-      for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
-      }
+      List<BookEntity> books = await homeRemoteDataSource.fetchBestSellerBooks(
+        pageNumber: pageNumber,
+      );
+
       return right(books);
     } catch (e) {
+      List<BookEntity> cachedBooks = homeLocalDataSource.fetchBestSellerBooks(
+        pageNumber: pageNumber,
+      );
       if (e is DioException) {
         return left(
-          ServerFailure.fromDioException(e),
+          BookFailureWithCached(
+            failure: ServerFailure.fromDioException(e),
+            cachedBooks: cachedBooks,
+          ),
         );
       }
       return left(
-        ServerFailure(
-          errMessage: e.toString(),
+        BookFailureWithCached(
+          failure: ServerFailure(errMessage: e.toString()),
+          cachedBooks: cachedBooks,
         ),
       );
     }
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> fetchFeaturedBooks() async {
+  Future<Either<BookFailureWithCached, List<BookEntity>>> fetchFeaturedBooks(
+      {int pageNumber = 0}) async {
     try {
-      var data =
-          await apiService.get(endPoint: 'volumes?q=technology&Sorting=newest');
-      List<BookModel> books = [];
-      for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
-      }
+      List<BookEntity> books = await homeRemoteDataSource.fetchFeaturedBooks(
+        pageNumber: pageNumber,
+      );
+
       return right(books);
     } catch (e) {
+      List<BookEntity> cachedBooks = homeLocalDataSource.fetchFeaturedBooks(
+        pageNumber: pageNumber,
+      );
       if (e is DioException) {
         return left(
-          ServerFailure.fromDioException(e),
+          BookFailureWithCached(
+            failure: ServerFailure.fromDioException(e),
+            cachedBooks: cachedBooks,
+          ),
         );
       }
       return left(
-        ServerFailure(
-          errMessage: e.toString(),
+        BookFailureWithCached(
+          failure: ServerFailure(errMessage: e.toString()),
+          cachedBooks: cachedBooks,
         ),
       );
     }
   }
 
   @override
-  Future<Either<Failure, List<BookModel>>> fetchSimilarBooks(
-      {required String category}) async {
+  Future<Either<Failure, List<BookEntity>>> fetchSimilarBooks({
+    required String category,
+    int pageNumber = 0,
+  }) async {
     try {
-      var data = await apiService.get(
-          endPoint: 'volumes?q=$category&Sorting=relevance');
-      List<BookModel> books = [];
-      for (var item in data['items']) {
-        books.add(BookModel.fromJson(item));
-      }
+      List<BookEntity> books = await homeRemoteDataSource.fetchSimilarBooks(
+        category: category,
+        pageNumber: pageNumber,
+      );
       return right(books);
     } catch (e) {
       if (e is DioException) {

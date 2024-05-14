@@ -1,18 +1,43 @@
+import 'package:bookly/core/utils/functions.dart';
+import 'package:bookly/features/home/domain/entities/book_entity.dart';
 import 'package:bookly/features/home/presentation/manager/best_seller_cubit/best_seller_books_cubit.dart';
+import 'package:bookly/features/home/presentation/views/widgets/best_seller_list_view_loading.dart';
 import 'package:bookly/features/home/presentation/views/widgets/books_list_view_item.dart';
-import 'package:bookly/core/widgets/custom_error_widget.dart';
-import 'package:bookly/core/widgets/custom_loading_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BestSellerListViewSliver extends StatelessWidget {
+class BestSellerListViewSliver extends StatefulWidget {
   const BestSellerListViewSliver({super.key});
 
   @override
+  State<BestSellerListViewSliver> createState() =>
+      _BestSellerListViewSliverState();
+}
+
+class _BestSellerListViewSliverState extends State<BestSellerListViewSliver> {
+  List<BookEntity> books = [];
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BestSellerBooksCubit, BestSellerBooksState>(
-      builder: (context, state) {
+    return BlocConsumer<BestSellerBooksCubit, BestSellerBooksState>(
+      listener: (context, state) {
         if (state is BestSellerBooksSuccess) {
+          books.addAll(state.books);
+        }
+        if (state is BestSellerBooksFailure) {
+          books = state.cachedBooks;
+        }
+        if (state is BestSellerBooksPaginationFailure) {
+          showSnackbar(
+            context,
+            msg: state.errMessage,
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is BestSellerBooksSuccess ||
+            state is BestSellerBooksPaginationLoading ||
+            state is BestSellerBooksPaginationFailure ||
+            state is BestSellerBooksFailure) {
           return SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
@@ -23,34 +48,16 @@ class BestSellerListViewSliver extends StatelessWidget {
                       horizontal: 24,
                     ),
                     child: BooksListViewItem(
-                      bookModel: state.books[index],
+                      bookEntity: books[index],
                     ),
                   ),
                 );
               },
-              childCount: state.books.length,
-            ),
-          );
-        } else if (state is BestSellerBooksFailure) {
-          return SliverToBoxAdapter(
-            child: CustomErrorWidget(
-              errMessage: state.errMessage,
-              onRefresh: () async {
-                await BlocProvider.of<BestSellerBooksCubit>(context)
-                    .fetchBestSellerBooks();
-              },
+              childCount: books.length,
             ),
           );
         } else {
-          return const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 300,
-              child: CustomLoadingIndicator(
-                width: 20,
-                height: 40,
-              ),
-            ),
-          );
+          return const BestSellerListViewSliverLoading();
         }
       },
     );

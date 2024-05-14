@@ -1,4 +1,4 @@
-import 'package:bookly/core/models/book_model/book_model.dart';
+import 'package:bookly/features/home/domain/entities/book_entity.dart';
 import 'package:bookly/features/home/presentation/manager/similar_books_cubit/similar_books_cubit.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_details_section.dart';
 import 'package:bookly/features/home/presentation/views/widgets/custom_book_details_app_bar.dart';
@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookDetailsViewBody extends StatefulWidget {
   const BookDetailsViewBody({super.key, required this.book});
-  final BookModel book;
+  final BookEntity book;
 
   @override
   State<BookDetailsViewBody> createState() => _BookDetailsViewBodyState();
@@ -19,15 +19,16 @@ class _BookDetailsViewBodyState extends State<BookDetailsViewBody> {
   @override
   void initState() {
     super.initState();
-    widget.book.volumeInfo.categories == null
-        ? {
-            BlocProvider.of<SimilarBooksCubit>(context).emitNoSimilar(),
-          }
-        : {
-            BlocProvider.of<SimilarBooksCubit>(context).fetchSimilarBooks(
-              category: widget.book.volumeInfo.categories![0],
-            )
-          };
+    String? category;
+    if (widget.book.category == null) {
+      category = widget.book.title;
+    } else {
+      category = widget.book.category;
+    }
+
+    BlocProvider.of<SimilarBooksCubit>(context).fetchSimilarBooks(
+      category: category,
+    );
   }
 
   @override
@@ -44,19 +45,15 @@ class _BookDetailsViewBodyState extends State<BookDetailsViewBody> {
                   height: 20,
                 ),
               ),
-              SuggestedBooksSection(state: state),
+              SuggestedBooksSection(
+                category: widget.book.category ?? widget.book.title,
+              ),
             ],
           );
         } else {
           return Center(
             child: CustomErrorWidget(
               errMessage: state.errMessage,
-              onRefresh: () async {
-                await BlocProvider.of<SimilarBooksCubit>(context)
-                    .fetchSimilarBooks(
-                  category: widget.book.volumeInfo.categories![0],
-                );
-              },
             ),
           );
         }

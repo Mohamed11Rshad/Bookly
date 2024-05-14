@@ -1,6 +1,7 @@
+import 'package:bookly/core/utils/functions.dart';
+import 'package:bookly/features/home/domain/entities/book_entity.dart';
 import 'package:bookly/features/home/presentation/manager/featured_books_cubit/featured_books_cubit.dart';
-import 'package:bookly/core/widgets/custom_error_widget.dart';
-import 'package:bookly/core/widgets/custom_loading_indicator.dart';
+import 'package:bookly/features/home/presentation/views/widgets/featured_books_list_loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,28 +16,55 @@ class FeaturedBooksListView extends StatefulWidget {
 
 class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
   int _currentIndex = 0;
+  int nextPage = 1;
+  List<BookEntity> books = [];
 
   @override
   Widget build(BuildContext context) {
     var mediaQueryHeight = MediaQuery.of(context).size.height;
     var mediaQuerywidth = MediaQuery.of(context).size.width;
 
-    return BlocBuilder<FeaturedBooksCubit, FeaturedBooksState>(
-      builder: (context, state) {
+    return BlocConsumer<FeaturedBooksCubit, FeaturedBooksState>(
+      listener: (context, state) {
         if (state is FeaturedBooksSuccess) {
+          books.addAll(state.books);
+        }
+        if (state is FeaturedBooksFailure) {
+          books = state.cachedBooks;
+        }
+        if (state is FeaturedBooksPaginationFailure) {
+          showSnackbar(
+            context,
+            msg: state.errMessage,
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is FeaturedBooksSuccess ||
+            state is FeaturedBooksPaginationLoading ||
+            state is FeaturedBooksPaginationFailure ||
+            state is FeaturedBooksFailure) {
           return SizedBox(
             width: mediaQuerywidth,
             height: mediaQueryHeight * 0.31,
             child: CarouselSlider.builder(
-              itemCount: state.books.length,
+              itemCount: books.length,
               options: CarouselOptions(
                 viewportFraction: 0.4,
                 padEnds: false,
-                enableInfiniteScroll: true,
+                enableInfiniteScroll: false,
                 onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
+                  setState(
+                    () {
+                      _currentIndex = index;
+                      if (index >= books.length * 0.7) {
+                        BlocProvider.of<FeaturedBooksCubit>(context)
+                            .fetchFeaturedBooks(
+                          pageNumber: nextPage++,
+                        );
+                      }
+                    },
+                  );
                 },
               ),
               itemBuilder: (BuildContext context, int index, int realIndex) {
@@ -48,25 +76,17 @@ class FeaturedBooksListViewState extends State<FeaturedBooksListView> {
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: CustomListViewItem(
-                      book: state.books[index],
+                      book: books[index],
                     ),
                   ),
                 );
               },
             ),
           );
-        } else if (state is FeaturedBooksFailure) {
-          return CustomErrorWidget(
-            errMessage: state.errMessage,
-            onRefresh: () async {
-              await BlocProvider.of<FeaturedBooksCubit>(context)
-                  .fetchFeaturedBooks();
-            },
-          );
         } else {
-          return CustomLoadingIndicator(
+          return FeaturedBooksListLoadingIndicator(
             width: mediaQuerywidth,
-            height: mediaQueryHeight * 0.31,
+            height: mediaQueryHeight,
           );
         }
       },

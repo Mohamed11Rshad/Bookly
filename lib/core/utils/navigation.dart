@@ -23,7 +23,7 @@ abstract class Navigation {
     );
   }
 
-  static Future<dynamic> navigateWithSlideAnimationRepalacement(
+  static Future<dynamic> navigateWithSlideAnimationReplacement(
       {required context, required Widget destination}) {
     return Navigator.pushReplacement(
       context,

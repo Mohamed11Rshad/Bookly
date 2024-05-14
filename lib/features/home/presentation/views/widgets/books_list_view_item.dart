@@ -1,15 +1,15 @@
 import 'package:bookly/constants.dart';
 import 'package:bookly/core/utils/navigation.dart';
 import 'package:bookly/core/utils/styles.dart';
-import 'package:bookly/core/models/book_model/book_model.dart';
+import 'package:bookly/features/home/domain/entities/book_entity.dart';
 import 'package:bookly/features/home/presentation/views/book_details_view.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_image.dart';
 import 'package:bookly/features/home/presentation/views/widgets/book_rating.dart';
 import 'package:flutter/material.dart';
 
 class BooksListViewItem extends StatelessWidget {
-  final BookModel bookModel;
-  const BooksListViewItem({super.key, required this.bookModel});
+  final BookEntity bookEntity;
+  const BooksListViewItem({super.key, required this.bookEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class BooksListViewItem extends StatelessWidget {
         Navigation.navigateWithSlideAnimation(
           context: context,
           destination: BookDetailsView(
-            book: bookModel,
+            book: bookEntity,
           ),
         );
       },
@@ -27,7 +27,7 @@ class BooksListViewItem extends StatelessWidget {
         child: Row(
           children: [
             BookImage(
-              imageUrl: bookModel.volumeInfo.imageLinks?.thumbnail ?? '',
+              imageUrl: bookEntity.image ?? '',
               errImageSize: 40,
             ),
             const SizedBox(
@@ -41,7 +41,7 @@ class BooksListViewItem extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.6,
                     child: Text(
-                      bookModel.volumeInfo.title!,
+                      bookEntity.title!,
                       style: Styles.textStyle22.copyWith(
                         fontFamily: kGtSectraFine,
                       ),
@@ -50,10 +50,12 @@ class BooksListViewItem extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    bookModel.volumeInfo.authors == null
+                    bookEntity.authorName == null
                         ? 'Unknown'
-                        : bookModel.volumeInfo.authors![0],
+                        : bookEntity.authorName!,
                     style: Styles.textStyle14.copyWith(color: Colors.white60),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(
                     height: 2,
@@ -61,19 +63,17 @@ class BooksListViewItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${(bookModel.saleInfo?.retailPrice?.amount) ?? 'free'}',
+                        '${(bookEntity.price) ?? 'free'}',
                         style: Styles.numTextStyle20,
                       ),
                       Text(
-                        (bookModel.saleInfo?.retailPrice?.amount) == null
-                            ? ''
-                            : ' €',
+                        (bookEntity.price) == null ? '' : ' €',
                         style: Styles.numTextStyle18,
                       ),
                       const Spacer(),
                       BookRating(
-                        rating: bookModel.volumeInfo.averageRating ?? 0,
-                        count: bookModel.volumeInfo.ratingCount ?? 0,
+                        rating: bookEntity.rating ?? 0,
+                        count: bookEntity.ratingCount ?? 0,
                       ),
                     ],
                   )
