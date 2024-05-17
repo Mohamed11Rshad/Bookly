@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:bookly/features/home/domain/entities/book_entity.dart';
+import 'package:bookly/core/entities/book_entity.dart';
 import 'package:bookly/features/home/domain/use_cases/similar_books_use_case.dart';
 import 'package:equatable/equatable.dart';
 
@@ -18,9 +18,8 @@ class SimilarBooksCubit extends Cubit<SimilarBooksState> {
         SimilarBooksNoSimilar(),
       );
     } else {
-      emit(SimilarBooksLoading());
-
       if (pageNumber == 0) {
+        emit(SimilarBooksLoading());
       } else {
         emit(SimilarBooksPaginationLoading());
       }

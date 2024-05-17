@@ -1,5 +1,5 @@
 import 'package:bookly/core/utils/functions.dart';
-import 'package:bookly/features/home/domain/entities/book_entity.dart';
+import 'package:bookly/core/entities/book_entity.dart';
 import 'package:bookly/features/home/presentation/manager/best_seller_cubit/best_seller_books_cubit.dart';
 import 'package:bookly/features/home/presentation/views/widgets/best_seller_list_view_loading.dart';
 import 'package:bookly/features/home/presentation/views/widgets/books_list_view_item.dart';
@@ -21,6 +21,7 @@ class _BestSellerListViewSliverState extends State<BestSellerListViewSliver> {
     return BlocConsumer<BestSellerBooksCubit, BestSellerBooksState>(
       listener: (context, state) {
         if (state is BestSellerBooksSuccess) {
+          
           books.addAll(state.books);
         }
         if (state is BestSellerBooksFailure) {
