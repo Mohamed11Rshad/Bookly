@@ -16,6 +16,10 @@ class SearchResultListView extends StatelessWidget {
 
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {
+        if (state is SearchInitial) {
+          books = [];
+        }
+
         if (state is SearchSuccess) {
           if (state.pageNumber == 0) {
             books = [];

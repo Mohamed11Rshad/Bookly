@@ -19,8 +19,8 @@ class SearchViewBody extends StatefulWidget {
 class _SearchViewBodyState extends State<SearchViewBody> {
   int nextPage = 1;
   bool isLoading = false;
+  bool isListOfBooksEmpty = true;
   String key = " ";
-  bool emptyList = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +29,23 @@ class _SearchViewBodyState extends State<SearchViewBody> {
         if (state is SearchSuccess) {
           key = state.key;
           isLoading = false;
-          if (state.books.isEmpty && state.pageNumber == 0) {
-            emptyList = true;
-          }
+          isListOfBooksEmpty = !state.books.isNotEmpty;
         }
 
         if (state is SearchPaginationLoading) {
           isLoading = true;
         }
+
+        if (state is SearchInitial) {
+          isListOfBooksEmpty = true;
+        }
       },
       builder: (context, state) {
         return NotificationListener<ScrollNotification>(
           onNotification: (scrollNotification) {
-            return fetchSearchResult(scrollNotification, context);
+            return !isListOfBooksEmpty
+                ? fetchSearchResult(scrollNotification, context)
+                : false;
           },
           child: CustomScrollView(
             slivers: [
@@ -71,13 +75,11 @@ class _SearchViewBodyState extends State<SearchViewBody> {
                   ),
                 ),
               ),
-              SliverPadding(
-                padding: const EdgeInsets.symmetric(
+              const SliverPadding(
+                padding: EdgeInsets.symmetric(
                   horizontal: 24,
                 ),
-                sliver: emptyList
-                    ? const SearchIcon()
-                    : const SearchResultListView(),
+                sliver: SearchResultListView(),
               ),
               SliverToBoxAdapter(
                 child: (isLoading)
