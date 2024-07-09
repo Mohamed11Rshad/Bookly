@@ -22,8 +22,9 @@ void main() async {
   await Hive.openBox<BookEntity>(kBestSellerBox);
   Bloc.observer = SimpleBlocObserver();
   runApp(const Bookly());
-  //any other code
 }
+
+
 
 class Bookly extends StatefulWidget {
   const Bookly({super.key});
